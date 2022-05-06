@@ -1,0 +1,10 @@
+{
+    "token": "",
+    "url_prefix": "",
+    "games": {
+        "Cars": "cars",
+        "Halloween Match": "halloween_match",
+        "Frog Super Bubbles": "frog_super_bubbles",
+        "Splishy Fish": "splishy_fish"
+    }
+}
