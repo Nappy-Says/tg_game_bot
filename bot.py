@@ -121,10 +121,11 @@ def tournament_push_notificate(game_name, country):
     except Exception as err:
         print(err)
 
-def push_notificate(message):
+def push_notificate(message, country):
     try:
         for i in Users.select():
-            bot.send_message(i.user_id, message,parse_mode='html')
+            if i.region == country:
+                bot.send_message(i.user_id, message,parse_mode='html')
     except Exception as err:
         print(err)
 
