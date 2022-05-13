@@ -1,4 +1,6 @@
 import json
+import random
+import string
 import logging
 from models.users import Users
 from telebot import TeleBot, types
@@ -28,7 +30,8 @@ def save_user_to_database(data: types.Message):
             user_id = _user_id,
             username = _username,
             first_name = _first_name,
-            last_name = _last_name
+            last_name = _last_name,
+            nickname = 'Player_' + ''.join([random.choice(string.digits) for i in range(6)])
         )
         user.save()
 
