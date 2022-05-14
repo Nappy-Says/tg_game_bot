@@ -3,7 +3,7 @@ import json
 from utils import *
 from models.news import News
 from telebot import TeleBot, types
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton, ParseMode
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
 with open("configs/content.json") as jsonFile:
     content = json.load(jsonFile)
@@ -13,7 +13,8 @@ with open("configs/content.json") as jsonFile:
 def show_news(msg: types.Message, bot: TeleBot):
     lang = language_check(msg.chat.id)
 
-    news_query = News.select().where(News.on_list == True).limit(5)
+    region = region_check(msg.from_user.id)
+    news_query = News.select().where(News.on_list == True, News.country == region).limit(5)
 
     buttons = []
     ss = content['news'][lang]['title']
