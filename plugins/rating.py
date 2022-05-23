@@ -44,7 +44,6 @@ def callback_rating_games(query: types.CallbackQuery, bot: TeleBot):
         WHERE gs.game_id = {game_query.get().id}
         GROUP BY users.user_id
         ORDER BY gs.score DESC
-        LIMIT 10;
     ''')
 
     game_sessions = query_game_sessions.fetchall()
@@ -54,11 +53,20 @@ def callback_rating_games(query: types.CallbackQuery, bot: TeleBot):
         return
 
     text = content['rating'][lang]['top10'].format(name_of_game = game_query.get().name)
+
+    position = '—'
     for i in range(len(game_sessions)):
+        if game_sessions[i][0] == query.from_user.id:
+            position = f'{i+1}. — {game_sessions[i][2]}'
+            break
+
+    for i in range(10):
         if game_sessions[i][0] == query.from_user.id:
             text += '<b>' + str(i+1) + f'. {game_sessions[i][1]} — {game_sessions[i][2]}</b>\n'
             continue
 
         text += str(i+1) + f'. {game_sessions[i][1]} — {game_sessions[i][2]}\n'
+
+    text += f'\nВы: {position}'
 
     bot.send_message(query.from_user.id, text, parse_mode='html')
