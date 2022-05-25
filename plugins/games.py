@@ -28,7 +28,7 @@ def games_text_handler(msg: types.Message, bot: TeleBot):
         bot.send_message(msg.chat.id, content['info_messages'][lang]['good_luck'], reply_markup=game_button(lang))
         bot.send_game(msg.chat.id, game_short_name=games_dict[msg.text])
 
-    if msg.text == '🎮 Сыграть' or msg.text == '🎮 Ойнау' or msg.text == "🎮 Ойнау":
+    if msg.text == '🎮 Сыграть' or msg.text == "🎮 O'ynang" or msg.text == "🎮 Ойнау":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         markup.add(*games_dict.keys(), row_width=2)
 
